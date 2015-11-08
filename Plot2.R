@@ -4,10 +4,12 @@ hpc = read.table('C:/Users/Marc/Dropbox/Courera/exdata-data-household_power_cons
 tail(hpc) # it does
 str(hpc) # examine the data frame
 # Just get the two days we need
-hpc = hpc[hpc$Date %in% c('1/2/2007','2/2/2007'),]
+hpc <- hpc[as.Date(hpc[,1], 
+                        "%d/%m/%Y") == as.Date('2007-02-01') | as.Date(hpc[,1], 
+                                                                       "%d/%m/%Y") == as.Date('2007-02-02'),]
+hpc$Date = as.Date(hpc$Date)
 hpc$Global_active_power = as.character(hpc$Global_active_power)
 hpc[hpc$Global_active_power=="?"] = NA
-
 head(hpc)
 tail(hpc)
 ## Open png device; create 'Plot2.png' 
